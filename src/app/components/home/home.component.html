@@ -1,0 +1,153 @@
+<!-- ================================================================
+     HERO SLIDER
+     ================================================================ -->
+<section class="hero-section" aria-label="Hero Banner">
+  <div class="hero-slider">
+    @for (slide of slides; track slide.heading2; let i = $index) {
+      <div class="hero-slide" [class.active]="i === currentSlide">
+        <div class="hero-content">
+          <div class="hero-text">
+            <p class="hero-pre">{{ slide.heading1 }}</p>
+            <h2 class="hero-title-main">{{ slide.heading2 }}</h2>
+            <h2 class="hero-title-accent">{{ slide.heading3 }}</h2>
+            <p class="hero-desc">{{ slide.description }}</p>
+          </div>
+          <div class="hero-image-wrap">
+            <img [src]="slide.imgSrc" [alt]="slide.imgAlt" class="hero-img" loading="eager" />
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Prev / Next arrows -->
+    <button class="slider-arrow prev-arrow" (click)="prevSlide()" aria-label="Previous slide">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+    </button>
+    <button class="slider-arrow next-arrow" (click)="nextSlide()" aria-label="Next slide">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </button>
+
+    <!-- Dots -->
+    <div class="slider-dots" role="tablist" aria-label="Slide navigation">
+      @for (slide of slides; track slide.heading2; let i = $index) {
+        <button
+          class="dot"
+          [class.active]="i === currentSlide"
+          (click)="goToSlide(i)"
+          [attr.aria-label]="'Go to slide ' + (i + 1)"
+          role="tab"
+          [attr.aria-selected]="i === currentSlide"
+        ></button>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     QUICK ACCESS LINKS
+     ================================================================ -->
+<section class="quick-links-section" aria-label="Quick Access">
+  <div class="section-inner">
+    <div class="quick-links-grid">
+      @for (link of quickLinks; track link.label) {
+        <a [routerLink]="link.route" class="quick-link-card" [attr.aria-label]="link.label + ' ' + link.sublabel">
+          <div class="ql-icon" [innerHTML]="getQuickLinkSvg(link.icon)"></div>
+          <span class="ql-label">{{ link.label }}</span>
+          <span class="ql-sublabel">{{ link.sublabel }}</span>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     VIDEO SECTION
+     ================================================================ -->
+<section class="video-section" aria-label="Latest Video">
+  <div class="section-inner">
+    <div class="video-row">
+      <!-- YouTube embed -->
+      <div class="video-embed-wrap">
+        <iframe
+          id="homeYoutubeVideo"
+          class="video-iframe"
+          src="https://www.youtube.com/embed/M3TUDn6XYUQ"
+          title="Business Reforms Action Plan 2020 – Release of Assessment of States/UTs"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+
+      <!-- Video description -->
+      <div class="video-info">
+        <h3 class="video-title">
+          Business Reforms Action Plan 2020 – Release of assessment of states/UTs
+        </h3>
+        <p class="video-desc">
+          Watch the release ceremony of the Business Reforms Action Plan 2020 assessment for States and Union Territories, presented by the Department for Promotion of Industry and Internal Trade.
+        </p>
+        <a
+          href="https://www.youtube.com/channel/UCsearch"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="view-more-btn"
+          id="viewMoreYoutubeBtn"
+          aria-label="View more videos on YouTube"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/></svg>
+          View More on YouTube
+          <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     ABOUT THE WEBSITE
+     ================================================================ -->
+<section class="about-section" aria-labelledby="about-website-heading">
+  <div class="section-inner">
+    <div class="about-row">
+      <div class="about-icon-col" aria-hidden="true">
+        <div class="about-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="38" height="38">
+            <path d="M12 3L2 12h3v7h6v-4h2v4h6v-7h3L12 3zm0 12.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+          </svg>
+        </div>
+        <div class="about-icon-line"></div>
+      </div>
+      <div class="about-content-col">
+        <h2 class="about-heading" id="about-website-heading">About the Website</h2>
+        <div class="about-underline"></div>
+        @for (para of aboutWebsite.split('\n\n'); track para) {
+          <p class="about-para">{{ para }}</p>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     ABOUT DPIIT
+     ================================================================ -->
+<section class="about-section about-section-alt" aria-labelledby="about-dpiit-heading">
+  <div class="section-inner">
+    <div class="about-row">
+      <div class="about-icon-col" aria-hidden="true">
+        <div class="about-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="38" height="38">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="about-content-col">
+        <h2 class="about-heading" id="about-dpiit-heading">About DPIIT</h2>
+        <div class="about-underline"></div>
+        <p class="about-para">{{ aboutDPIIT }}</p>
+      </div>
+    </div>
+  </div>
+</section>
