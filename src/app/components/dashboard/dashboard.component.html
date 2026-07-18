@@ -1,0 +1,256 @@
+<div class="dashboard-wrapper" id="main-content">
+
+  <!-- ====== TOP TITLE BAR ====== -->
+  <div class="dash-title-row">
+    <div class="dash-title-text">
+      <h2 class="dash-title">Reform Dashboard - National Level</h2>
+      <div class="dash-title-underline"></div>
+    </div>
+    <div class="dash-title-actions">
+      <div class="days-left-badge" [class.negative]="daysLeft < 0">
+        <span class="days-label">Days Left</span>
+        <span class="days-value">{{ daysLeft }}</span>
+      </div>
+      <button class="admin-details-btn">Admin Details</button>
+    </div>
+  </div>
+
+  <!-- ====== TAB BUTTONS ====== -->
+  <div class="tab-bar">
+    <button class="tab-btn" [class.active]="activeTab === 'stateWise'" (click)="setTab('stateWise')">State Wise</button>
+    <button class="tab-btn" [class.active]="activeTab === 'centreWise'" (click)="setTab('centreWise')">Centre Wise</button>
+  </div>
+
+  <!-- ====== TOP STATS ROW ====== -->
+  <div class="stats-row">
+
+    <!-- Evaluated Reforms Table -->
+    <div class="stats-card">
+      <div class="card-header">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+        </svg>
+        <span>Evaluated Reforms</span>
+      </div>
+      <table class="dash-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Yes</th>
+            <th>No</th>
+            <th>NA1</th>
+            <th>NA2</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of evaluatedReforms; track row.category) {
+          <tr>
+            <td>{{ row.category }}</td>
+            <td>{{ row.yes }}</td>
+            <td>{{ row.no }}</td>
+            <td>{{ row.na1 }}</td>
+            <td>{{ row.na2 }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Total Reform Count Table -->
+    <div class="stats-card wide-card">
+      <div class="card-header total-header">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+          <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+        </svg>
+        <span>Total Reform Count: 0</span>
+        <span class="submitted-badge">Submitted: 0</span>
+      </div>
+      <table class="dash-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Evaluated</th>
+            <th>Not Evaluated</th>
+            <th>Pending Clarification</th>
+            <th>Rejected</th>
+            <th>Not Submitted</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of totalReformData; track row.category) {
+          <tr>
+            <td>{{ row.category }}</td>
+            <td>{{ row.evaluated }}</td>
+            <td>{{ row.notEvaluated }}</td>
+            <td>{{ row.pendingClarification }}</td>
+            <td>{{ row.rejected }}</td>
+            <td>{{ row.notSubmitted }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ====== TIMELINE ====== -->
+  <div class="timeline-card">
+    <div class="card-header">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+        <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+      </svg>
+      <span>Timelines for Evidence Upload</span>
+    </div>
+    <div class="timeline-body">
+      <div class="timeline-start">
+        <span class="timeline-date-top">02 Jan 2024</span>
+        <div class="timeline-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+          </svg>
+        </div>
+        <span class="timeline-date-bottom">Jan 2024</span>
+        <span class="timeline-submitted-pct">0% Submitted</span>
+      </div>
+      <div class="timeline-track">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot"></div>
+        <span class="timeline-remaining-label">100% Remaining</span>
+      </div>
+      <div class="timeline-end">
+        <span class="timeline-date-top end-date">05 May 2026</span>
+        <div class="timeline-icon-wrap end-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+          </svg>
+        </div>
+        <span class="timeline-date-bottom">May 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== BOTTOM ROW ====== -->
+  <div class="bottom-row">
+
+    <!-- Reform Status (map) -->
+    <div class="map-card">
+      <div class="card-header dark-header">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+          <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+        </svg>
+        <span>Reform Status</span>
+      </div>
+      <div class="map-body">
+        <div class="reform-area-row">
+          <label class="reform-area-label">Reform Area: <span class="required">*</span></label>
+          <select class="reform-area-select" [(ngModel)]="selectedReformArea">
+            <option value="">-Select Reform Area-</option>
+            @for (area of reformAreas; track area) {
+            <option [value]="area">{{ area }}</option>
+            }
+          </select>
+        </div>
+        <div class="map-content-row">
+          <div class="india-map-wrap">
+            <!-- Zoom controls -->
+            <div class="map-zoom">
+              <button class="zoom-btn">+</button>
+              <button class="zoom-btn">−</button>
+            </div>
+            <!-- Simple SVG India map placeholder -->
+            <div class="india-map-svg">
+              <svg viewBox="0 0 200 240" width="100%" height="100%">
+                <!-- Simplified India outline -->
+                <path d="M80,10 L100,8 L120,12 L135,25 L145,40 L150,55 L148,70 L155,80 L160,95 L158,110 L152,125 L140,138 L130,148 L120,155 L110,165 L105,178 L100,190 L95,178 L90,165 L80,155 L70,148 L60,138 L48,125 L42,110 L40,95 L45,80 L52,70 L50,55 L55,40 L65,25 Z"
+                  fill="#e8a020" stroke="#c88010" stroke-width="1.5"/>
+                <!-- Kashmir region -->
+                <path d="M80,10 L88,5 L96,2 L104,2 L112,5 L120,12 L115,18 L108,22 L100,20 L92,22 L85,18 Z"
+                  fill="#d49010" stroke="#c88010" stroke-width="1"/>
+                <!-- Northeast states hint -->
+                <path d="M152,80 L158,75 L165,78 L168,88 L163,95 L158,95 L152,90 Z"
+                  fill="#e8a020" stroke="#c88010" stroke-width="1"/>
+                <!-- Andaman hint -->
+                <circle cx="168" cy="140" r="5" fill="#e8a020" stroke="#c88010" stroke-width="1"/>
+                <circle cx="170" cy="152" r="4" fill="#e8a020" stroke="#c88010" stroke-width="1"/>
+              </svg>
+            </div>
+          </div>
+          <div class="map-legend">
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#2d8a2d"></span>
+              <span>Above 90%</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#2288aa"></span>
+              <span>80-90%</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#44bbaa"></span>
+              <span>70-80%</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#e8a020"></span>
+              <span>Below 70%</span>
+            </div>
+          </div>
+        </div>
+        <div class="map-action-row">
+          <button class="map-btn submitted-btn">Submitted</button>
+          <button class="map-btn evaluated-btn">Evaluated</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reform Area Wise Analysis -->
+    <div class="analysis-card">
+      <div class="card-header dark-header">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+        </svg>
+        <span>Reform Area Wise Analysis</span>
+      </div>
+      <div class="analysis-body">
+        <div class="no-data-chart">
+          <svg viewBox="0 0 80 60" width="80" height="60">
+            <rect x="5" y="30" width="10" height="20" fill="#ddd" rx="2"/>
+            <rect x="20" y="20" width="10" height="30" fill="#ddd" rx="2"/>
+            <rect x="35" y="10" width="10" height="40" fill="#ddd" rx="2"/>
+            <rect x="50" y="25" width="10" height="25" fill="#ddd" rx="2"/>
+            <rect x="65" y="15" width="10" height="35" fill="#ddd" rx="2"/>
+            <!-- magnifying glass -->
+            <circle cx="55" cy="25" r="12" fill="none" stroke="#bbb" stroke-width="2.5"/>
+            <line x1="64" y1="34" x2="72" y2="42" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <p class="no-data-text">No data available</p>
+        </div>
+        <div class="analysis-legend">
+          <div class="al-row">
+            <div class="al-item">
+              <span class="al-dot" style="background:#e74c3c"></span>Not Submitted
+            </div>
+            <div class="al-item">
+              <span class="al-dot" style="background:#2ecc71"></span>Submitted and Evaluated
+            </div>
+          </div>
+          <div class="al-row">
+            <div class="al-item">
+              <span class="al-dot" style="background:#a8e6a0"></span>Submitted but Not Evaluated
+            </div>
+            <div class="al-item">
+              <span class="al-dot" style="background:#3498db"></span>Submitted and Pending Clarification
+            </div>
+          </div>
+          <div class="al-row">
+            <div class="al-item">
+              <span class="al-dot" style="background:#f39c12"></span>Submitted and Rejected
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ====== FOOTER NOTE ====== -->
+  <p class="dash-footnote">**Percentage is being calculated based on the total evidences submitted on the portal</p>
+
+</div>

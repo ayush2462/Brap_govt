@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent {
   loginError = '';
   isLoading = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {
     this.generateCaptcha();
   }
 
@@ -62,6 +63,7 @@ export class LoginComponent {
       this.isLoading = false;
       // Demo: admin/admin123 credentials
       if (this.loginId === 'admin' && this.password === 'admin123') {
+        this.authService.login('Admin');
         this.router.navigate(['/dashboard']);
       } else {
         this.loginError = 'Invalid Login ID or Password. Please try again.';

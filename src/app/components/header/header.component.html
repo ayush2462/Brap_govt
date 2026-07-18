@@ -44,18 +44,43 @@
         <p class="ministry-en">MINISTRY OF COMMERCE &amp; INDUSTRY, GOVERNMENT OF INDIA</p>
       </div>
     </div>
-    <!-- Portal Tag -->
-    <!-- <div class="portal-tag">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" style="color:#d4af37">
-        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-      </svg>
-      <span class="portal-tag-text">Secure Portal</span>
-    </div> -->
+
+    <!-- Admin info block (shown after login) -->
+    @if (isLoggedIn) {
+    <div class="admin-info-block">
+      <div class="lang-dropdown-wrap">
+        <button class="lang-header-btn">
+          Language
+          <svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><path d="M7 10l5 5 5-5z"/></svg>
+        </button>
+      </div>
+      <div class="admin-card" (click)="toggleUserDropdown()">
+        <div class="admin-avatar">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+          </svg>
+        </div>
+        <div class="admin-text">
+          <span class="admin-name">{{ userName }}
+            <svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><path d="M7 10l5 5 5-5z"/></svg>
+          </span>
+          <span class="admin-date">{{ currentDate }}</span>
+        </div>
+        @if (showUserDropdown) {
+        <div class="user-dropdown">
+          <a href="#" class="user-dd-item">Profile</a>
+          <a href="#" class="user-dd-item">Change Password</a>
+          <button class="user-dd-item logout-dd-btn" (click)="logout()">Logout</button>
+        </div>
+        }
+      </div>
+    </div>
+    }
   </div>
 </header>
 
 <!-- ===== PRIMARY NAVIGATION ===== -->
-<nav class="primary-nav" role="navigation" aria-label="Main navigation">
+<nav class="primary-nav" [class.dashboard-nav]="isLoggedIn" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
     <ul class="nav-list" [class.mobile-open]="isMobileMenuOpen">
       @for (item of navItems; track item.label; let i = $index) {
@@ -63,13 +88,28 @@
           [class.has-dropdown]="item.hasDropdown"
           [class.dropdown-open]="isMobileMenuOpen && item.hasDropdown && openDropdownIndex === i">
 
-        <!-- Link: if has dropdown on mobile → toggle sub-menu; else navigate + close -->
         <a
           [routerLink]="item.hasDropdown && isMobileMenuOpen ? null : item.link"
           class="nav-link"
+          [class.national-dash-link]="item.label === 'National Dashboard'"
           [routerLinkActive]="item.hasDropdown && isMobileMenuOpen ? '' : 'active'"
           [routerLinkActiveOptions]="{exact: item.link === '/'}"
           (click)="item.hasDropdown ? toggleMobileDropdown(i, $event) : closeMobileMenu()">
+          @if (item.label === 'National Dashboard') {
+            <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          } @else if (item.label === 'Dashboard') {
+            <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+          } @else if (item.label === 'State - Reforms') {
+            <span class="nav-text-icon">A</span>
+          } @else if (item.label === 'Reform Management') {
+            <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+          } @else if (item.label === 'Admin') {
+            <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+          } @else if (item.label === 'Report') {
+            <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 5H10V5h8v2zm0 4H10V9h8v2zm-3 4H10v-2h5v2zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"/></svg>
+          } @else if (item.label === 'User Data') {
+            <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          }
           {{ item.label }}
           @if (item.hasDropdown) {
           <svg class="nav-chevron" viewBox="0 0 24 24" fill="currentColor" width="11" height="11">
@@ -89,7 +129,30 @@
       }
     </ul>
 
-    <!-- Sub-nav items inside nav bar (no blank space) -->
+    <!-- Dashboard right-side actions -->
+    @if (isLoggedIn) {
+    <div class="nav-actions">
+      <a href="#" class="nav-action-link midyear-link">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+          <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z" />
+        </svg>
+        MidYear Review
+      </a>
+      <a href="#" class="nav-action-link brap-link">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+        BRAP
+      </a>
+      <button class="nav-action-btn logout-nav-btn" (click)="logout()">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+          <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+        </svg>
+        Logout
+      </button>
+    </div>
+    } @else {
+    <!-- Public nav actions -->
     <div class="nav-actions">
       <a href="#" class="nav-action-link midyear-link">
         <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
@@ -106,6 +169,7 @@
         Login
       </a>
     </div>
+    }
 
     <!-- Mobile toggle -->
     <button class="mobile-toggle" [class.is-open]="isMobileMenuOpen" (click)="toggleMobileMenu()" [attr.aria-expanded]="isMobileMenuOpen" aria-label="Toggle menu">
