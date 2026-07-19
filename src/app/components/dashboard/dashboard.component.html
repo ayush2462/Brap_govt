@@ -153,25 +153,48 @@
           <div class="india-map-wrap">
             <!-- Zoom controls -->
             <div class="map-zoom">
-              <button class="zoom-btn">+</button>
-              <button class="zoom-btn">−</button>
+              <button class="zoom-btn" (click)="zoomIn()" title="Zoom In">+</button>
+              <button class="zoom-btn" (click)="zoomOut()" title="Zoom Out">−</button>
+              <button class="zoom-btn reset-btn" (click)="resetZoom()" title="Reset">⟲</button>
             </div>
-            <!-- Simple SVG India map placeholder -->
-            <div class="india-map-svg">
-              <svg viewBox="0 0 200 240" width="100%" height="100%">
-                <!-- Simplified India outline -->
-                <path d="M80,10 L100,8 L120,12 L135,25 L145,40 L150,55 L148,70 L155,80 L160,95 L158,110 L152,125 L140,138 L130,148 L120,155 L110,165 L105,178 L100,190 L95,178 L90,165 L80,155 L70,148 L60,138 L48,125 L42,110 L40,95 L45,80 L52,70 L50,55 L55,40 L65,25 Z"
-                  fill="#e8a020" stroke="#c88010" stroke-width="1.5"/>
-                <!-- Kashmir region -->
-                <path d="M80,10 L88,5 L96,2 L104,2 L112,5 L120,12 L115,18 L108,22 L100,20 L92,22 L85,18 Z"
-                  fill="#d49010" stroke="#c88010" stroke-width="1"/>
-                <!-- Northeast states hint -->
-                <path d="M152,80 L158,75 L165,78 L168,88 L163,95 L158,95 L152,90 Z"
-                  fill="#e8a020" stroke="#c88010" stroke-width="1"/>
-                <!-- Andaman hint -->
-                <circle cx="168" cy="140" r="5" fill="#e8a020" stroke="#c88010" stroke-width="1"/>
-                <circle cx="170" cy="152" r="4" fill="#e8a020" stroke="#c88010" stroke-width="1"/>
+
+            <!-- GeoJSON SVG Map -->
+            <div class="india-map-svg-container">
+              <svg #indiaMapSvg
+                   viewBox="0 0 420 460"
+                   class="india-map-svg-geo"
+                   (mousedown)="onMapMouseDown($event)"
+                   (mousemove)="onMapMouseMove($event)"
+                   (mouseup)="onMapMouseUp()"
+                   (mouseleave)="onMapMouseUp()">
+                <g [attr.transform]="mapTransform">
+                  @for (state of statePaths; track state.name) {
+                  <path
+                    class="state-path"
+                    [attr.d]="state.path"
+                    [attr.fill]="hoveredState === state.name ? '#ffd54f' : state.color"
+                    stroke="#fff"
+                    stroke-width="0.8"
+                    (mouseenter)="onStateHover($event, state.name, state.percentage)"
+                    (mousemove)="onStateMove($event)"
+                    (mouseleave)="onStateLeave()"
+                  />
+                  }
+                </g>
               </svg>
+
+              <!-- Tooltip -->
+              @if (hoveredState) {
+              <div class="map-tooltip"
+                   [style.left.px]="tooltipX"
+                   [style.top.px]="tooltipY">
+                <div class="tooltip-title">{{ hoveredState }}</div>
+                <div class="tooltip-pct">
+                  <span class="tooltip-dot" [style.background]="getColorForPercentage(hoveredPercentage!)"></span>
+                  Reform: {{ hoveredPercentage }}%
+                </div>
+              </div>
+              }
             </div>
           </div>
           <div class="map-legend">

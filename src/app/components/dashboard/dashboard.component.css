@@ -408,12 +408,83 @@
   color: #fff;
 }
 
-.india-map-svg {
-  padding-left: 30px;
-  min-height: 160px;
+/* GeoJSON SVG Map Container */
+.india-map-svg-container {
+  position: relative;
+  width: 100%;
+  min-height: 340px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #f8f9fd 0%, #eef1f9 100%);
+  border: 1px solid #e0e4f0;
+}
+
+.india-map-svg-geo {
+  width: 100%;
+  height: 340px;
+  display: block;
+  cursor: grab;
+}
+
+.india-map-svg-geo:active {
+  cursor: grabbing;
+}
+
+/* State Path Styles */
+.state-path {
+  transition: fill 0.22s ease, filter 0.22s ease;
+  cursor: pointer;
+}
+
+.state-path:hover {
+  filter: drop-shadow(0 0 6px rgba(0,0,0,0.25)) brightness(1.1);
+  stroke: #1a1a4e;
+  stroke-width: 1.5;
+}
+
+/* Map Tooltip */
+.map-tooltip {
+  position: absolute;
+  pointer-events: none;
+  z-index: 100;
+  background: rgba(26, 26, 78, 0.92);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.12);
+  transform: translateY(-100%);
+}
+
+.tooltip-title {
+  font-weight: 700;
+  font-size: 0.82rem;
+  margin-bottom: 3px;
+  letter-spacing: 0.2px;
+}
+
+.tooltip-pct {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 6px;
+  font-weight: 500;
+  opacity: 0.92;
+}
+
+.tooltip-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Reset button style */
+.reset-btn {
+  font-size: 0.85rem;
 }
 
 .map-legend {

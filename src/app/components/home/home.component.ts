@@ -18,6 +18,20 @@ interface QuickLink {
   route: string;
 }
 
+interface Guideline {
+  title: string;
+  date: string;
+  type: string;
+}
+
+interface PressRelease {
+  title: string;
+  day: string;
+  month: string;
+  year: string;
+  source: string;
+}
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -66,6 +80,25 @@ export class HomeComponent implements OnInit, OnDestroy {
     { icon: 'description', label: 'Guidelines &', sublabel: 'Documents', route: '/guidelines' },
     { icon: 'campaign', label: 'Press', sublabel: 'Releases', route: '/press' },
     { icon: 'star', label: 'Best', sublabel: 'Practices', route: '/best-practices' },
+  ];
+  // ---- Guidelines ----
+  guidelines: Guideline[] = [
+    { title: 'BRAP 2024 Framework Guidelines for States & UTs', date: '15 Mar 2024', type: 'PDF' },
+    { title: 'Business Reform Action Plan – Implementation Manual', date: '02 Jan 2024', type: 'PDF' },
+    { title: 'Ease of Doing Business — Regulatory Compliance Guide', date: '20 Nov 2023', type: 'PDF' },
+    { title: 'Industrial Park Rating System (IPRS) Guidelines', date: '05 Sep 2023', type: 'PDF' },
+    { title: 'State Reform Score Computation Methodology 2023', date: '18 Jul 2023', type: 'PDF' },
+    { title: 'Online Single Window System — Integration Manual', date: '01 Jun 2023', type: 'DOC' },
+  ];
+
+  // ---- Press Releases ----
+  pressReleases: PressRelease[] = [
+    { title: 'DPIIT releases BRAP 2024 Assessment Rankings for all States & UTs', day: '12', month: 'Apr', year: '2024', source: 'PIB — Ministry of Commerce & Industry' },
+    { title: 'India ranked 63rd in World Bank Ease of Doing Business Index 2024', day: '24', month: 'Mar', year: '2024', source: 'DPIIT Press Release' },
+    { title: 'Union Minister launches new Investor Facilitation Portal at Invest India', day: '08', month: 'Feb', year: '2024', source: 'PIB — DPIIT' },
+    { title: 'Cabinet approves National Industrial Corridor Development Programme', day: '17', month: 'Jan', year: '2024', source: 'Cabinet Secretariat' },
+    { title: 'DPIIT signs MoU with 12 State Governments for reform implementation', day: '05', month: 'Dec', year: '2023', source: 'PIB — Ministry of Commerce & Industry' },
+    { title: 'Start-up India initiative crossed 1 lakh registered start-ups milestone', day: '30', month: 'Nov', year: '2023', source: 'DPIIT Press Release' },
   ];
 
   // ---- About Sections ----

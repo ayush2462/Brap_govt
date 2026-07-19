@@ -42,54 +42,102 @@
       </div>
 
       <div class="table-scroll-wrap">
-        <table class="ra-table">
-          <thead>
-            <tr>
-              <th class="sticky-col">
-                <div class="th-inner">
-                  <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A1 1 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/></svg>
-                  State
-                </div>
-              </th>
-              <th>Total</th>
-              <th>Submitted</th>
-              <th>Reviewed Once</th>
-              <th>Approved (Yes)</th>
-              <th>Approved (NA1)</th>
-              <th>Approved (NA2)</th>
-              <th>Rejected</th>
-              <th>Pending Clarification</th>
-              <th>Pending Clarification (5 Days Left)</th>
-              <th>Pending with Reviewer</th>
-              <th>Pending with Reviewer (Iteration Count = 1)</th>
-              <th>Pending with Reviewer (Iteration Count = 2)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="total-row">
-              <td class="sticky-col state-col">{{ reformTotalRow.state }}</td>
-              <td>{{ reformTotalRow.total }}</td>
-              <td>{{ reformTotalRow.submitted }}</td>
-              <td>{{ reformTotalRow.reviewedOnce }}</td>
-              <td>{{ reformTotalRow.approvedYes }}</td>
-              <td>{{ reformTotalRow.approvedNA1 }}</td>
-              <td>{{ reformTotalRow.approvedNA2 }}</td>
-              <td>{{ reformTotalRow.rejected }}</td>
-              <td>{{ reformTotalRow.pendingClarification }}</td>
-              <td>{{ reformTotalRow.pendingClarification5Days }}</td>
-              <td>{{ reformTotalRow.pendingWithReviewer }}</td>
-              <td>{{ reformTotalRow.pendingReviewerIter1 }}</td>
-              <td>{{ reformTotalRow.pendingReviewerIter2 }}</td>
-            </tr>
-          </tbody>
-        </table>
+        @if (activeTab === 'stateWise') {
+          <!-- State Wise: exactly matches the user's design image -->
+          <table class="ra-table no-scroll-table">
+            <thead>
+              <tr>
+                <th>Approved (NA1)</th>
+                <th>Approved (NA2)</th>
+                <th>Rejected</th>
+                <th>Pending Clarification</th>
+                <th>Pending Clarification (5 Days Left)</th>
+                <th>Pending with Reviewer</th>
+                <th>Pending with Reviewer (Iteration Count = 1)</th>
+                <th>Pending with Reviewer (Iteration Count = 2)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
+        } @else {
+          <!-- Centre Wise: full table with horizontal scroll and state list -->
+          <table class="ra-table">
+            <thead>
+              <tr>
+                <th class="sticky-col">
+                  <div class="th-inner">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A1 1 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/></svg>
+                    State
+                  </div>
+                </th>
+                <th>Total</th>
+                <th>Submitted</th>
+                <th>Reviewed Once</th>
+                <th>Approved (Yes)</th>
+                <th>Approved (NA1)</th>
+                <th>Approved (NA2)</th>
+                <th>Rejected</th>
+                <th>Pending Clarification</th>
+                <th>Pending Clarification (5 Days Left)</th>
+                <th>Pending with Reviewer</th>
+                <th>Pending with Reviewer (Iteration Count = 1)</th>
+                <th>Pending with Reviewer (Iteration Count = 2)</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of reformRows; track row.state) {
+                <tr>
+                  <td class="sticky-col state-col">{{ row.state }}</td>
+                  <td>{{ row.total }}</td>
+                  <td>{{ row.submitted }}</td>
+                  <td>{{ row.reviewedOnce }}</td>
+                  <td>{{ row.approvedYes }}</td>
+                  <td>{{ row.approvedNA1 }}</td>
+                  <td>{{ row.approvedNA2 }}</td>
+                  <td>{{ row.rejected }}</td>
+                  <td>{{ row.pendingClarification }}</td>
+                  <td>{{ row.pendingClarification5Days }}</td>
+                  <td>{{ row.pendingWithReviewer }}</td>
+                  <td>{{ row.pendingReviewerIter1 }}</td>
+                  <td>{{ row.pendingReviewerIter2 }}</td>
+                </tr>
+              }
+              <tr class="total-row">
+                <td class="sticky-col state-col">{{ reformTotalRow.state }}</td>
+                <td>{{ reformTotalRow.total }}</td>
+                <td>{{ reformTotalRow.submitted }}</td>
+                <td>{{ reformTotalRow.reviewedOnce }}</td>
+                <td>{{ reformTotalRow.approvedYes }}</td>
+                <td>{{ reformTotalRow.approvedNA1 }}</td>
+                <td>{{ reformTotalRow.approvedNA2 }}</td>
+                <td>{{ reformTotalRow.rejected }}</td>
+                <td>{{ reformTotalRow.pendingClarification }}</td>
+                <td>{{ reformTotalRow.pendingClarification5Days }}</td>
+                <td>{{ reformTotalRow.pendingWithReviewer }}</td>
+                <td>{{ reformTotalRow.pendingReviewerIter1 }}</td>
+                <td>{{ reformTotalRow.pendingReviewerIter2 }}</td>
+              </tr>
+            </tbody>
+          </table>
+        }
       </div>
 
       <!-- Table Footer -->
       <div class="table-footer">
         <span class="record-count">
           <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-          0 record(s)
+          {{ activeTab === 'stateWise' ? 0 : reformRows.length }} record(s)
         </span>
         <div class="divider-v"></div>
         <button class="footer-btn export-btn" (click)="exportData()">
@@ -140,58 +188,106 @@
       </div>
 
       <div class="table-scroll-wrap">
-        <table class="ra-table activity-table">
-          <thead>
-            <tr class="dark-thead-row">
-              <th>
-                <div class="th-inner">
-                  {{ activityTab === 'stateWise' ? 'State' : 'Area' }}
-                  <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A1 1 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/></svg>
-                </div>
-              </th>
-              <th>
-                <div class="th-inner">
-                  Total Submitted
-                  <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A1 1 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/></svg>
-                </div>
-              </th>
-              <th>
-                <div class="th-inner">
-                  Pending with Reviewer
-                  <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A1 1 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/></svg>
-                </div>
-              </th>
-              <th>
-                <div class="th-inner">
-                  Pending with Approver
-                  <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A1 1 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/></svg>
-                </div>
-              </th>
-              <th>
-                <div class="th-inner">
-                  Reviewed/Approved (By DPIIT)
-                  <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A1 1 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/></svg>
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="total-row">
-              <td>{{ activityTotalRow.area }}</td>
-              <td>{{ activityTotalRow.totalSubmitted }}</td>
-              <td>{{ activityTotalRow.pendingWithReviewer }}</td>
-              <td>{{ activityTotalRow.pendingWithApprover }}</td>
-              <td>{{ activityTotalRow.reviewedApproved }}</td>
-            </tr>
-          </tbody>
-        </table>
+        @if (activityTab === 'stateWise') {
+          <!-- State-wise Activity Table -->
+          <table class="ra-table">
+            <thead>
+              <tr class="dark-thead-row">
+                <th>
+                  <div class="th-inner">
+                    State
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A1 1 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/></svg>
+                  </div>
+                </th>
+                <th>Total Submitted</th>
+                <th>Pending with Reviewer</th>
+                <th>Pending with Approver</th>
+                <th>Reviewed/Approved (By DPIIT)</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of reformRows; track row.state) {
+                <tr>
+                  <td style="text-align: left; font-weight: 600; color: #1a1a4e;">{{ row.state }}</td>
+                  <td>{{ row.submitted }}</td>
+                  <td>{{ row.pendingWithReviewer }}</td>
+                  <td>{{ row.total - row.submitted }}</td> <!-- Pending with Approver mock calculation -->
+                  <td>{{ row.approvedYes }}</td>
+                </tr>
+              }
+              <tr class="total-row">
+                <td style="text-align: left; font-weight: 700; color: #1c1c56;">Total</td>
+                <td>{{ reformTotalRow.submitted }}</td>
+                <td>{{ reformTotalRow.pendingWithReviewer }}</td>
+                <td>{{ reformTotalRow.total - reformTotalRow.submitted }}</td>
+                <td>{{ reformTotalRow.approvedYes }}</td>
+              </tr>
+            </tbody>
+          </table>
+        } @else {
+          <!-- Area-wise Activity Table: exactly matches the user's design image -->
+          <table class="ra-table activity-table">
+            <thead>
+              <tr class="dark-thead-row">
+                <th>
+                  <div class="th-inner">
+                    Area
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A1 1 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/></svg>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-inner">
+                    Total Submitted
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A1 1 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/></svg>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-inner">
+                    Pending with Reviewer
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A1 1 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/></svg>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-inner">
+                    Pending with Approver
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A1 1 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/></svg>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-inner">
+                    Reviewed/Approved (By DPIIT)
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A1 1 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/></svg>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of activityRows; track row.area) {
+                <tr>
+                  <td style="text-align: left; font-weight: 600; color: #1a1a4e;">{{ row.area }}</td>
+                  <td>{{ row.totalSubmitted }}</td>
+                  <td>{{ row.pendingWithReviewer }}</td>
+                  <td>{{ row.pendingWithApprover }}</td>
+                  <td>{{ row.reviewedApproved }}</td>
+                </tr>
+              }
+              <tr class="total-row">
+                <td style="text-align: left;">{{ activityTotalRow.area }}</td>
+                <td>{{ activityTotalRow.totalSubmitted }}</td>
+                <td>{{ activityTotalRow.pendingWithReviewer }}</td>
+                <td>{{ activityTotalRow.pendingWithApprover }}</td>
+                <td>{{ activityTotalRow.reviewedApproved }}</td>
+              </tr>
+            </tbody>
+          </table>
+        }
       </div>
 
       <!-- Table Footer -->
       <div class="table-footer">
         <span class="record-count">
           <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-          0 record(s)
+          {{ activityTab === 'stateWise' ? reformRows.length : activityRows.length }} record(s)
         </span>
         <div class="divider-v"></div>
         <button class="footer-btn export-btn" (click)="exportData()">
@@ -207,4 +303,6 @@
 
   </div>
 
-</div>
+  </div>
+
+

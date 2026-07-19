@@ -25,17 +25,20 @@
    TITLE ROW
    ============================================================ */
 .title-row {
+  position: relative;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 2px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  min-height: 52px;
 }
 
 .title-col {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1;
+  text-align: center;
   gap: 8px;
 }
 
@@ -62,10 +65,13 @@
 .ul-blue  { flex: 1; background: #2980b9; }
 
 .title-actions {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;
 }
 
 .days-left-badge {
@@ -291,20 +297,67 @@
   border-bottom: none;
 }
 
+/* custom scrollbar for horizontal table scroll */
+.table-scroll-wrap::-webkit-scrollbar {
+  height: 8px;
+}
+.table-scroll-wrap::-webkit-scrollbar-track {
+  background: #f1f3f9;
+}
+.table-scroll-wrap::-webkit-scrollbar-thumb {
+  background: #1c1c56;
+  border-radius: 4px;
+}
+.table-scroll-wrap::-webkit-scrollbar-thumb:hover {
+  background: #e74c3c;
+}
+
+.ra-table tbody tr {
+  transition: background 0.15s ease;
+}
+.ra-table tbody tr:hover {
+  background: #f6f8fd;
+}
+
+.ra-table td.sticky-col {
+  background: #ffffff;
+  border-right: 2px solid #dde2f3 !important; /* separate sticky column clearly */
+}
+
+/* ensure sticky-col maintains correct background on hover */
+.ra-table tbody tr:hover td.sticky-col {
+  background: #f6f8fd;
+}
+
 .sticky-col {
   position: sticky;
   left: 0;
-  background: #1c1c56;
   z-index: 5;
+}
+
+th.sticky-col {
+  background: #1c1c56 !important;
+  border-right: 2px solid rgba(255, 255, 255, 0.2) !important;
 }
 
 .total-row td.sticky-col,
 .total-row td:first-child {
   background: #fff;
+  font-weight: 700;
+}
+
+.ra-table tbody tr.total-row:hover {
+  background: #fff; /* keep total row clean */
+}
+.ra-table tbody tr.total-row:hover td.sticky-col {
+  background: #fff;
 }
 
 .total-row td {
-  font-weight: 500;
+  font-weight: 700;
+  background: #fafbff;
+  border-top: 2px solid #dde2f3;
+  color: #1c1c56;
 }
 
 /* ============================================================
